@@ -19,13 +19,15 @@ for i in range(5):
     l2 = len(file_ans)
     
     for j in range(l1):
-        data.append([file_p[j],file_ans[j],i])
+        data.append([file_p[j],file_ans[j],i+1])
 
 
 
 file = open('database','wb')
 pickle.dump(data,file)
 file.close()
+
+
 
 
     
