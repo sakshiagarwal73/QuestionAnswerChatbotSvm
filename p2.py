@@ -23,13 +23,6 @@ for link in links:
        paragraph = paragraph.find_parent('p')    
        ans.append(str(paragraph.text))
 
-
-
-       
-        
-
-
-
 file = open('netbank_ques','wb')
 pickle.dump(quest,file)
 file.close()

@@ -5,3 +5,4 @@ run:
 	python3 p4.py
 	python3 p5.py
 	python3 preprocess.py
+	python3 com.py

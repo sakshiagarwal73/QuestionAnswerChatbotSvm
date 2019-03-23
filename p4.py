@@ -17,19 +17,13 @@ for link in links:
 
     soup = bs.BeautifulSoup(source,'html.parser') #lxml is the parser,converting source to beautiful soup object
 
-    for div in soup.find_all('div',class_='toggle-div-header'): 
-        quest.append(str(div.text))
-
     for paragraph in soup.find_all('span',class_='bolded-txt'):
-       paragraph = paragraph.find_parent('p')    
-       ans.append(str(paragraph.text))
-
-
-
-       
         
-
-
+        paragraph = paragraph.find_parent('p')    
+        ans.append(str(paragraph.text))
+        div = paragraph.find_previous('div')
+        div = div.find_previous('div')
+        quest.append(str(div.text))
 
 file = open('travelcard_ques','wb')
 pickle.dump(quest,file)

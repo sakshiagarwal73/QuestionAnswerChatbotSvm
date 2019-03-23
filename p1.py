@@ -30,12 +30,6 @@ for link in links:
        ans.append(str(paragraph.text))
 
 
-
-       
-        
-
-
-
 file = open('loan_ques','wb')
 pickle.dump(quest,file)
 file.close()

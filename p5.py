@@ -19,17 +19,8 @@ for link in links:
 
     for div in soup.find_all('div',class_='toggle-div-header'): 
         quest.append(str(div.text))
-
-    for paragraph in soup.find_all('span',class_='bolded-txt'):
-       paragraph = paragraph.find_parent('p')    
-       ans.append(str(paragraph.text))
-
-
-
-       
-        
-
-
+       	paragraph = div.find_next('div')    
+       	ans.append(str(paragraph.text))
 
 file = open('imd_ques','wb')
 pickle.dump(quest,file)
