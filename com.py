@@ -62,6 +62,7 @@ for item in data:
 
 indexlist = [40,44,18,15,16] ## indexlist contains number of records of each class
 sumindex = 0
+finalbootdata = []
 for i in range(5):
     ansdata = [] ## all records of a particular class , input to bootstraping
     for j in range(indexlist[i]):
@@ -71,9 +72,18 @@ for i in range(5):
            
         ansdata.append(l)
     sumindex += indexlist[i]         
-    bootdata =  resample(ansdata, replace=True, n_samples= 75, random_state=1)   
-    SVC_classifier = SklearnClassifier(SVC())
-    SVC_classifier.train(bootdata)    
+    bootdata =  resample(ansdata, replace=True, n_samples= 75, random_state=1)
+    for item in bootdata:
+        finalbootdata.append(item)
+
+
+clf = SVC(kernel='linear') 
+x = []
+y = []    
+for item in finalbootdata:    
+        x.append(item[0])   
+        y.append(item[1])   
+clf.fit(x,y)                           
         
                  
 
