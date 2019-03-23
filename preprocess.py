@@ -10,7 +10,8 @@ from nltk.stem import WordNetLemmatizer
 
 stop_words = set(stopwords.words("english"))
 stop_words.add('?')
-stop_words.add('Q')
+stop_words.add('q.')
+stop_words.add('a.')
 stop_words.add('.')
 stop_words.add('\'s')
 stop_words.add(',')
@@ -38,8 +39,8 @@ def lemmatizefun(wordlist):
     #print(res)
     return res    
 
-listoffiles = ["loan_ques.txt","netbank_ques.txt","imd_ques.txt","ppf_ques.txt","travelcard_ques.txt"]
-listwrite =   ["loan_p.txt","netbank_p.txt","imd_p.txt","ppf_p.txt","travelcard_p.txt"]
+listoffiles = ["loan_ques","netbank_ques","imd_ques","ppf_ques","travelcard_ques"]
+listwrite =   ["loan_p","netbank_p","imd_p","ppf_p","travelcard_p"]
 
 cnt = 0
 

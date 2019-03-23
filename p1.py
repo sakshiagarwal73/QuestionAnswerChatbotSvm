@@ -1,6 +1,10 @@
 import bs4 as bs
 import urllib.request
 import pickle
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
 
 
 links = ["https://homeloans.sbi/faq",
@@ -16,7 +20,7 @@ ans = []
 for link in links:
     source = urllib.request.urlopen(link).read() #source code
 
-    soup = bs.BeautifulSoup(source,'lxml') #lxml is the parser,converting source to beautiful soup object
+    soup = bs.BeautifulSoup(source,'html.parser') #lxml is the parser,converting source to beautiful soup object
 
     for div in soup.find_all('div',class_='toggle-div-header'): 
         quest.append(str(div.text))
@@ -32,11 +36,11 @@ for link in links:
 
 
 
-file = open('loan_ques.txt','wb')
+file = open('loan_ques','wb')
 pickle.dump(quest,file)
 file.close()
 
-file = open('loan_ans.txt','wb')
+file = open('loan_ans','wb')
 pickle.dump(ans,file)
 file.close()
 
