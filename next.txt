@@ -1,0 +1,3 @@
+open the script.py on the server to run it in infinte loop
+
+each text message is a different context
