@@ -59,33 +59,6 @@ def bagOfWords(vocabulary, item):
     return vect
 
 
-def bootstrap(data, finalvect):
-    # indexlist contains number of records of each class
-    indexlist = [40, 44, 18, 15, 16]
-    sumindex = 0
-    finalbootdata = []
-    oob = []
-    for i in range(5):
-        ansdata = []  # all records of a particular class , input to bootstraping
-        for j in range(indexlist[i]):
-            l = []
-            l.append(finalvect[j + sumindex])
-            l.append(data[j + sumindex][2])
-
-            ansdata.append(l)
-
-        bootdata = resample(ansdata, replace=True,
-                            n_samples=75, random_state=1)
-        for item in ansdata:
-            if item not in bootdata:
-                oob.append(item)
-        sumindex += indexlist[i]
-        for item in bootdata:
-            finalbootdata.append(item)
-
-    return finalbootdata
-
-
 def cosine(a, b):
     ma = np.linalg.norm(a)
     mb = np.linalg.norm(b)
@@ -95,37 +68,25 @@ def cosine(a, b):
 
 def main():
     #print('sdf')
-    
-    file = open('./../data/database', 'rb')
+
+    file = open('./../data/database','rb')
     data = pickle.load(file)
     file.close()
+
+    file = open('./../data/vocab', 'rb')
+    vocabulary = pickle.load(file)
+    file.close()
     
-    unique = []
+    file = open('./../data/model','rb')
+    model = pickle.load(file)
+    file.close()
+
+    file = open('./../data/vectors','rb')
+    vectors = pickle.load(file)
+    file.close()
+    
     indexlist = [40, 44, 18, 15, 16]
     prefixList = [0, 40, 84, 102, 117]
-
-    for item in data:  # creating vocabulary
-        for word in item[0]:
-            if(word not in unique):
-                unique.append(word)
-
-    finalvect = []
-
-    for item in data:
-        vect = bagOfWords(unique, item[0])
-        finalvect.append(vect)
-
-    finalbootdata = bootstrap(data, finalvect)
-
-    # train the model
-    clf = SVC(kernel='rbf')
-    x = []
-    y = []
-    for item in finalbootdata:
-        x.append(item[0])
-        y.append(item[1])
-    clf.fit(x, y)
-
 
     print('sdf')
     inp = str(input())
@@ -134,10 +95,10 @@ def main():
     wordlist = removestop(tokenized)
     wordlist = lemmatizefun(wordlist)
     wordlist = set(wordlist)
-    item = bagOfWords(unique, wordlist)
+    item = bagOfWords(vocabulary, wordlist)
     item = np.array(item)
     item = item.reshape(1, -1)
-    class_predicted = clf.predict(item)
+    class_predicted = model.predict(item)
     class_predicted = class_predicted-1
     #print(class_predicted[0])
     c = indexlist[class_predicted[0]]
@@ -145,9 +106,9 @@ def main():
     min = 0
     min_index = 150
     for i in range(c):
-        cosine(item, finalvect[i+c1])
-        if cosine(item, finalvect[i+c1]) > min:
-            min = cosine(item, finalvect[i+c1])
+        cosine(item, vectors[i+c1])
+        if cosine(item, vectors[i+c1]) > min:
+            min = cosine(item, vectors[i+c1])
             #print(min)
             min_index = i+c1
     #print(min_index)

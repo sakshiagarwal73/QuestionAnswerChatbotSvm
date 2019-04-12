@@ -1,0 +1,69 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 97vh;
+    box-sizing: border-box;
+    
+}
+*{
+    box-sizing: border-box;
+}
+div#chat{
+    height: 87%;
+    top: 1%;
+}
+
+ul#messages{
+    height:100%;
+    width: 90%;
+    overflow: scroll;
+    list-style: none;
+    display: block;
+    scroll-behavior: smooth;
+    scroll-margin: 0px;
+}
+
+ul#messages li.userMessage{
+    float: right;
+    clear: left;
+    width:fit-content;
+    max-width: 60%;
+    background-color: #e6ffff;
+    border: 1px solid black;
+    padding: 2px;
+    margin-top: 5px;
+    border-radius: 5px
+}
+
+ul#messages li.systemReply{
+    float: left;
+    clear: right;
+    width: fit-content;
+    max-width: 70%;
+    background-color: #d9ffb3;
+    border: 1px solid black;
+    padding: 2px;
+    margin-top:5px;
+    border-radius: 5px
+}
+
+#inputBox{
+    height: 10%;
+    padding: 10px;
+}
+
+#inp{
+    width: 78%;
+    float: left;
+    height: 5%;
+    text-indent: 10px;
+}
+#btn{
+    width: 17%;
+    float: left;
+    height: 30px;
+    margin-left: 15px;
+}
+
+

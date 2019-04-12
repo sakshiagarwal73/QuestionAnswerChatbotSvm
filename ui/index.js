@@ -6,6 +6,7 @@ const http = require('http'),
     promise = require('promise'),
     {spawn} = require('child_process')
     utf8 = require('utf8'),
+    path = require('path'),
     { StringDecoder } = require('string_decoder');
 
 const decoder = new StringDecoder('utf8');
@@ -20,7 +21,7 @@ app.use(cors());
 
 
 
-app.get("/" , express.static(__dirname + '/frontEnd'));
+app.use("/" , express.static(__dirname + '/frontEnd'));
 app.post('/',(req,res,next)=>{
     //console.log(req.body.message)
     const scr = spawn('python3',['./../script.py'])
@@ -33,9 +34,9 @@ app.post('/',(req,res,next)=>{
     scr.stdout.on('data',(data)=>{
         console.log(data)
         a = decoder.write(data)
-        if(a[0]!=='s'){
+        if(a[0]!=='s' && a[1]!=='d'){
             console.log(a)
-            res.send(data);
+            res.send(data); 
         }
         scr.stdin.end();
         scr.on('exit',(code)=>{
@@ -45,10 +46,7 @@ app.post('/',(req,res,next)=>{
     scr.stderr.on('data',(data)=>{
         console.log('Program Error:',data)
         scr.stdin.end();
-        res.send(data);
-        scr.on('exit',(code)=>{
-            console.log(code)
-        })
+        res.send('error');
     })
 })
 
